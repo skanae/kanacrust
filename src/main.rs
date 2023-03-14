@@ -7,43 +7,33 @@ fn main(){
     }
     
     let p: &str = &args[1];
-    let mut p1: Vec<char> = vec![];
-
-    for i in p.chars() {
+    let mut split = p.split(' ');
+    let mut p1 = vec![];
+    for i in split {
         p1.push(i);
     }
     
-
     println!(".intel_syntax noprefix");
     println!(".globl main");
     println!("main:");
-    println!("  mov rax, {}", p1[0]);
+    
 
     for i in 0..p1.len() {
       let operator = p1[i];
-      if i==0 {continue};
-      if operator == '+'{
+      if i==0 {
+        println!("  mov rax, {}", p1[0]);
+        continue;
+      };
+      if operator == "+"{
         println!("  add rax, {}",p1[i+1]);
         continue;
       }
-      else if operator == '-'{
+      else if operator == "-"{
         println!("  sub rax, {}",p1[i+1]);
         continue;
       }
     }
-    // for i in p2 {
-    //   if i=="+"{
-    //     print!("  add rax");
-    //     continue;
-    //   }
-    //   else if i=="-"{
-    //     print!("  sub rax");
-    //     continue;
-    //   }
-    //   else{
-    //     println!(", {}",i);
-    //   }
-    // }
+
     println!("  ret");
 
 }
